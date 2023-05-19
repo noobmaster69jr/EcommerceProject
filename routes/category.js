@@ -8,7 +8,9 @@ const {
   deleteCategory,
 } = require("../controller/category");
 
-routes.post("/ecomm/api/v1/categories", createCategory);
+const {checkForCategoryName} = require('../middleware')
+
+routes.post("/ecomm/api/v1/categories",[checkForCategoryName], createCategory);
 routes.get("/ecomm/api/v1/categories", getAllCategory);
 routes.get("/ecomm/api/v1/categories/:id", getCategoryById);
 routes.put("/ecomm/api/v1/categories/:id", updateCategory);
