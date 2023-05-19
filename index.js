@@ -1,38 +1,50 @@
-
 const { serverPort } = require("./config/server.config");
-const {Categories, sequelize} = require("./models")
+const { Categories, sequelize, Products } = require("./models");
 const express = require("express");
-const routes = require("./routes")
+const {categoryRoutes, productRoutes} = require("./routes");
 const app = express();
 
-app.use(express.json())
-app.use(routes)
+app.use(express.json());
+app.use(categoryRoutes);
+app.use(productRoutes)
 
 app.listen(serverPort, async () => {
   console.log("server is running on this port", serverPort);
-  await init()
+  await init();
 });
 
-async function init(){
-  try{
-     await Categories.sync({ force: true });
+async function init() {
+  try {
+    await sequelize.sync({ force: true });
+    const defaultProducts = [
+      {
+        description: "For men",
+        name: "summer shirts",
+        cost: 870,
+        quantity: 20,
+      },
+      {
+        name: "female shirts",
+        cost: 1200,
+        description: "For women",
+        quantity: 20,
+      },
+    ];
 
-     const defaultCategories = [
-       {
-         name: "Mobile",
-         description: "communicate",
-       },
-       {
-         name: "Laptop",
-         description: "Browse",
-       },
-     ];
+    const defaultCategories = [
+      {
+        name: "Mobile",
+        description: "communicate",
+      },
+      {
+        name: "Laptop",
+        description: "Browse",
+      },
+    ];
 
-     const result = await Categories.bulkCreate(defaultCategories);
-     console.log(result);
-
-  }catch(err){
-    console.log(err)
+    await Categories.bulkCreate(defaultCategories);
+    await Products.bulkCreate(defaultProducts)
+  } catch (err) {
+    console.log(err);
   }
-   
 }
