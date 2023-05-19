@@ -2,6 +2,7 @@ const express = require("express");
 const {
   createProduct,
   getAllProduct,
+  filterBasedOnProduct,
   getProductOnId,
   updateProduct,
   deleteProduct,
@@ -13,6 +14,8 @@ const routes = express.Router();
 routes.post("/ecomm/api/v1/products",[validateProductData] ,createProduct);
 
 routes.get("/ecomm/api/v1/products", getAllProduct);
+
+routes.get("/ecomm/api/v1/products/filter", filterBasedOnProduct );
 
 routes.get("/ecomm/api/v1/products/:id", getProductOnId);
 
