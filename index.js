@@ -18,27 +18,40 @@ async function init() {
     await sequelize.sync({ force: true });
     const defaultProducts = [
       {
-        description: "For men",
-        name: "summer shirts",
+        description: "Bathing soap",
+        name: "Soap",
         cost: 870,
         quantity: 20,
+        CategoryId: 1,
       },
       {
-        name: "female shirts",
+        name: "Axe ",
         cost: 1200,
-        description: "For women",
+        description: "Fragnance for men",
         quantity: 20,
+        CategoryId: 2,
+      },
+      {
+        name: "T-shirt",
+        cost: 1200,
+        description: "For both men and women",
+        quantity: 20,
+        CategoryId: 3,
       },
     ];
 
     const defaultCategories = [
       {
-        name: "Mobile",
-        description: "communicate",
+        name: "Beauty",
+        description: "All Beauty products",
       },
       {
-        name: "Laptop",
-        description: "Browse",
+        name: "Fragnance",
+        description: "All Fragnance products",
+      },
+      {
+        name: "clothes",
+        description: "All Clothing products",
       },
     ];
 
