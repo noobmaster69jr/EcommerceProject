@@ -1,10 +1,11 @@
 const { serverPort } = require("./config/server.config");
-const { Categories, sequelize, Products } = require("./models");
+const { Categories, sequelize, Products, Role} = require("./models");
 const express = require("express");
-const {categoryRoutes, productRoutes} = require("./routes");
+const {categoryRoutes, productRoutes, authRoutes} = require("./routes");
 const app = express();
 
 app.use(express.json());
+app.use(authRoutes)
 app.use(categoryRoutes);
 app.use(productRoutes)
 
@@ -55,8 +56,11 @@ async function init() {
       },
     ];
 
+    const defaultRoles = [{name:'User'},{name:'Admin'}]
+
     await Categories.bulkCreate(defaultCategories);
     await Products.bulkCreate(defaultProducts)
+    await Role.bulkCreate(defaultRoles)
   } catch (err) {
     console.log(err);
   }
