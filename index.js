@@ -1,4 +1,5 @@
 const { serverPort } = require("./config/server.config");
+const jwt = require("jsonwebtoken");
 const { Categories, sequelize, Products, Role} = require("./models");
 const express = require("express");
 const {categoryRoutes, productRoutes, authRoutes} = require("./routes");
@@ -12,11 +13,12 @@ app.use(productRoutes)
 app.listen(serverPort, async () => {
   console.log("server is running on this port", serverPort);
   await init();
+ 
 });
 
 async function init() {
   try {
-    await sequelize.sync({ force: true });
+    await sequelize.authenticate();
     const defaultProducts = [
       {
         description: "Bathing soap",
