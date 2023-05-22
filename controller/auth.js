@@ -42,6 +42,7 @@ async function signIn(req, res) {
      
      const authorities = []
      const roles = await user.getRoles();
+     console.log('roles ', roles)
      for(let i =0; i < roles.length; i++){
         authorities.push(roles[i].name)
      }

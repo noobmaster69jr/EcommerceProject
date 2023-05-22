@@ -65,35 +65,8 @@ async function checkRoles(req, res, next) {
   }
 }
 
-async function verifyToken(req, res, next){
-   const token = req.headers['access-token']
-   
-   
-    if(token){
-        try{
-            const result = jwt.verify(token, process.env.JWT_SECRET_KEY);
-            console.log("result : ", result);
-            if (result) {
-            next();
-            } else {
-                res.status(400).send({ msg: "auth token has expired" });
-                return;
-            }
-        }catch(err){
-                res.status(400).send({ msg: "auth token has expired" });
-                return;
-        }
-        
-   }else{
-     res.status(401).send({ msg: "auth token is missing" });
-    return
-   }
-   
-    
-}
 
 module.exports = {
   checkDuplicateUsernameAndEmail,
-  checkRoles,
-  verifyToken
+  checkRoles
 };
